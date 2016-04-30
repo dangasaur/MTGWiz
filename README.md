@@ -1,0 +1,2 @@
+# MTGWiz
+TCG Automation Suite
