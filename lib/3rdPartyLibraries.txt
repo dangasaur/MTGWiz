@@ -1,0 +1,11 @@
+﻿#unmanaged
+cvextern.dll
+msvcp120.dll
+msvcr120.dll
+opencv_ffmpeg310_64.dll
+
+#managed
+Emgu.CV.DebuggerVisualizers.VS2015.dll
+Emgu.CV.UI.dll
+Emgu.CV.UI.GL.dll
+Emgu.CV.World.dll
