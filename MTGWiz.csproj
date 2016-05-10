@@ -118,38 +118,24 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cvextern.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="lib\3rdPartyLibraries.txt" />
-    <Content Include="lib\cvextern.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="lib\cvextern.dll" />
     <Content Include="lib\Emgu.CV.DebuggerVisualizers.VS2015.dll" />
     <Content Include="lib\Emgu.CV.UI.dll" />
     <Content Include="lib\Emgu.CV.UI.GL.dll" />
     <Content Include="lib\Emgu.CV.World.dll" />
-    <Content Include="lib\msvcp120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\msvcr120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\opencv_ffmpeg310_64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="msvcp120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="msvcr120.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="opencv_ffmpeg310_64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="lib\msvcp120.dll" />
+    <Content Include="lib\msvcr120.dll" />
+    <Content Include="lib\opencv_ffmpeg310_64.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /d "$(ProjectDir)lib\cvextern.dll" "$(ProjectDir)$(Outdir)"
+xcopy /y /d "$(ProjectDir)lib\msvcp120.dll" "$(ProjectDir)$(Outdir)"
+xcopy /y /d "$(ProjectDir)lib\msvcr120.dll" "$(ProjectDir)$(Outdir)"
+xcopy /y /d "$(ProjectDir)lib\opencv_ffmpeg310_64.dll" "$(ProjectDir)$(Outdir)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
