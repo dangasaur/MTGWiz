@@ -11,19 +11,10 @@ namespace MTGWiz
     class ImageHasher
     {
 
-        public Result HashImage()
+        public HashResult HashImage()
         {
             return null;
         }
 
-
-        public class Result
-        {
-            string hash;
-            Image<Bgr, byte> source;
-            Image<Gray, byte> gray;
-            Image<Gray, byte> avg;
-            
-        }
     }
 }

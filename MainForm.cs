@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,12 +38,33 @@ namespace MTGWiz
                 return;
             }
 
-            openFileLabel.Text = openFileDialog.FileName;            
+            openFileLabel.Text = openFileDialog.FileName;
+            ProcessAndUpdateUI(openFileDialog.FileName);
         }
 
-        private void ProcessAndUpdateUI()
+        private void ProcessAndUpdateUI(string fileName)
         {
-            //update all ImageBoxes with source + all processed images
+            //open source image
+            Image<Bgr, Byte> source = new Image<Bgr, Byte>(fileName);
+
+            //resize
+            Image<Bgr, Byte> resized = source.Resize(32, 32, Emgu.CV.CvEnum.Inter.Linear);
+
+            //grayscale
+            Image<Gray, Byte> grayscaled = resized.Convert<Gray, Byte>();
+            int sum = 0;
+            for (int y = 0; y < 32; y++)
+            {
+                for (int x = 0; x < 32; x++)
+                {
+                    sum += grayscaled.Data[x, y, 0];
+                }
+            }
+
+            //update UI
+            sourceImageBox.Image = source;
+            resizeImageBox.Image = resized;
+            grayImageBox.Image = grayscaled;
         }
     }
 }
