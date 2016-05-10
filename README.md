@@ -1,6 +1,10 @@
 # MTGWiz
 TCG Automation Suite
 
+## How To Build
+
+This project requires EMGU CV 3.1 to build.
+
 ## TODO
 
 ### process
