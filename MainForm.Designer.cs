@@ -31,22 +31,22 @@
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.sourceImageBox = new Emgu.CV.UI.ImageBox();
             this.resizeImageBox = new Emgu.CV.UI.ImageBox();
             this.grayImageBox = new Emgu.CV.UI.ImageBox();
-            this.avgImageBox = new Emgu.CV.UI.ImageBox();
+            this.thresholdImageBox = new Emgu.CV.UI.ImageBox();
             this.fourthImageBox = new Emgu.CV.UI.ImageBox();
+            this.sourceImageBox = new Emgu.CV.UI.ImageBox();
             this.infoTextBox = new System.Windows.Forms.TextBox();
             this.openFileButton = new System.Windows.Forms.Button();
             this.openFileLabel = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sourceImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resizeImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayImageBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.avgImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thresholdImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fourthImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sourceImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -76,7 +76,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.resizeImageBox, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.grayImageBox, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.avgImageBox, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.thresholdImageBox, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.fourthImageBox, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(521, 39);
@@ -86,18 +86,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(512, 517);
             this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // sourceImageBox
-            // 
-            this.sourceImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sourceImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceImageBox.Enabled = false;
-            this.sourceImageBox.Location = new System.Drawing.Point(3, 39);
-            this.sourceImageBox.Name = "sourceImageBox";
-            this.sourceImageBox.Size = new System.Drawing.Size(512, 517);
-            this.sourceImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.sourceImageBox.TabIndex = 2;
-            this.sourceImageBox.TabStop = false;
             // 
             // resizeImageBox
             // 
@@ -125,18 +113,19 @@
             this.grayImageBox.TabIndex = 2;
             this.grayImageBox.TabStop = false;
             // 
-            // avgImageBox
+            // thresholdImageBox
             // 
-            this.avgImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.avgImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.avgImageBox.Enabled = false;
-            this.avgImageBox.Location = new System.Drawing.Point(3, 261);
-            this.avgImageBox.Name = "avgImageBox";
-            this.avgImageBox.Padding = new System.Windows.Forms.Padding(2);
-            this.avgImageBox.Size = new System.Drawing.Size(250, 253);
-            this.avgImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.avgImageBox.TabIndex = 2;
-            this.avgImageBox.TabStop = false;
+            this.thresholdImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.thresholdImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.thresholdImageBox.Enabled = false;
+            this.thresholdImageBox.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.thresholdImageBox.Location = new System.Drawing.Point(3, 261);
+            this.thresholdImageBox.Name = "thresholdImageBox";
+            this.thresholdImageBox.Padding = new System.Windows.Forms.Padding(2);
+            this.thresholdImageBox.Size = new System.Drawing.Size(250, 253);
+            this.thresholdImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.thresholdImageBox.TabIndex = 2;
+            this.thresholdImageBox.TabStop = false;
             // 
             // fourthImageBox
             // 
@@ -150,6 +139,18 @@
             this.fourthImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.fourthImageBox.TabIndex = 2;
             this.fourthImageBox.TabStop = false;
+            // 
+            // sourceImageBox
+            // 
+            this.sourceImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sourceImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sourceImageBox.Enabled = false;
+            this.sourceImageBox.Location = new System.Drawing.Point(3, 39);
+            this.sourceImageBox.Name = "sourceImageBox";
+            this.sourceImageBox.Size = new System.Drawing.Size(512, 517);
+            this.sourceImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.sourceImageBox.TabIndex = 2;
+            this.sourceImageBox.TabStop = false;
             // 
             // infoTextBox
             // 
@@ -205,11 +206,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.sourceImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resizeImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayImageBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.avgImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thresholdImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fourthImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sourceImageBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -220,7 +221,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private Emgu.CV.UI.ImageBox resizeImageBox;
         private Emgu.CV.UI.ImageBox grayImageBox;
-        private Emgu.CV.UI.ImageBox avgImageBox;
+        private Emgu.CV.UI.ImageBox thresholdImageBox;
         private Emgu.CV.UI.ImageBox fourthImageBox;
         private Emgu.CV.UI.ImageBox sourceImageBox;
         private System.Windows.Forms.TextBox infoTextBox;
