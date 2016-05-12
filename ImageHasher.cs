@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using System.Diagnostics;
 
 namespace MTGWiz
 {
@@ -28,26 +29,42 @@ namespace MTGWiz
 
         public HashResult HashImage(string path)
         {
-            //open source image
+            //source, resize, grayscale, threshold
             Image<Bgr, Byte> source = new Image<Bgr, Byte>(path);
-
-            //resize
             Image<Bgr, Byte> resized = source.Resize(8, 8, Emgu.CV.CvEnum.Inter.Linear);
-
-            //grayscale
             Image<Gray, Byte> grayscaled = resized.Convert<Gray, Byte>();
-
-            //threshold
             uint avg = AvgValue(grayscaled);
             Image<Gray, byte> thresholded = grayscaled.ThresholdBinary(new Gray(avg), new Gray(255));
 
-            //compute hash string
-                //flatten the thresholded image to a one dimensional array
-                //convert the array into a hex string
-            uint dec = 0;
+            //compute hash
+            List<Boolean> flatBoolImage = new List<Boolean>();
+            for (int y = 0; y < HASH_SIZE; y++)
+            {
+                for (int x = 0; x < HASH_SIZE; x++)
+                {
+                    flatBoolImage.Add(thresholded.Data[x, y, 0] == 0);
+                }
+            }
 
+            StringBuilder hashStringBuilder = new StringBuilder();
+            int dec = 0;
+            foreach (var it in flatBoolImage.Select((value, index) => new { Value = value, Index = index }) )
+            {
+                if (it.Value)
+                {
+                    dec += 2 ^ (it.Index % 8);
+                }
 
-            return new HashResult("", source, resized, grayscaled, thresholded);
+                if (it.Index %8 == 7)
+                {
+                    hashStringBuilder.Append(dec.ToString("X2"));
+                    dec = 0;
+                }
+            }
+
+            Debug.WriteLine("hash: " + hashStringBuilder.ToString());
+
+            return new HashResult(hashStringBuilder.ToString(), source, resized, grayscaled, thresholded);
         }
 
     }
