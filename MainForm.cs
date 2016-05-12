@@ -14,13 +14,26 @@ using System.Windows.Forms;
 
 namespace MTGWiz
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IInfoWriter
     {
-        private ImageHasher hasher = new ImageHasher();
+       
+        private ImageHasher hasher;
 
         public MainForm()
         {
             InitializeComponent();
+            hasher = new ImageHasher(this);
+        }
+
+        public void WriteInfo(string message)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<string>(WriteInfo), new object[] { message });
+            } else
+            {
+                infoTextBox.Text += message;
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,6 +62,7 @@ namespace MTGWiz
             HashResult result = hasher.HashImage(fileName);
 
             //update UI
+            hashLabel.Text = result.Hash;
             sourceImageBox.Image = result.Source;
             resizeImageBox.Image = result.Resize;
             grayImageBox.Image = result.Grayscale;

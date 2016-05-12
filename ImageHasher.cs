@@ -12,6 +12,12 @@ namespace MTGWiz
     class ImageHasher
     {
         const uint HASH_SIZE = 8;
+        private readonly IInfoWriter InfoWriteer;
+
+        public ImageHasher(IInfoWriter infoWriter)
+        {
+            this.InfoWriteer = infoWriter;
+        }
 
         private uint AvgValue(Image<Gray, byte> image)
         {
@@ -62,7 +68,7 @@ namespace MTGWiz
                 }
             }
 
-            Debug.WriteLine("hash: " + hashStringBuilder.ToString());
+            this.InfoWriteer.WriteInfo("hash: " + hashStringBuilder.ToString());
 
             return new HashResult(hashStringBuilder.ToString(), source, resized, grayscaled, thresholded);
         }
